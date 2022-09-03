@@ -1,7 +1,7 @@
 ## Online Polls And Surveys
 
 Web application for creating online polls and surveys based
-on the [Django Tutorial project][django-tutorial], with
+on the [Django Tutorial project](https://docs.djangoproject.com/en/4.1/intro/tutorial01/), with
 additional features.
 
 App created as part of the [Individual Software Process](
