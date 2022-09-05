@@ -7,6 +7,13 @@ from django.utils import timezone
 from .models import Question, Choice
 
 
+def showtime(request) -> HttpResponse:
+    """Return the local time and date."""
+    thaitime = timezone.localtime()
+    msg = f"<p>The time is {thaitime}.</p>"
+    return HttpResponse(msg)
+
+
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
