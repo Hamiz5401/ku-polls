@@ -137,11 +137,20 @@ class Question_can_vote_and_is_published_test(TestCase):
         self.assertFalse(future_question.can_vote())
 
     def test_pub_date_and_end_date_is_now(self):
-        """Test for question that pub_date and end_date is now.
+        """Test for question that pub_date is now.
 
-        :return: True when pub_date and end_date is now
+        :return: True when pub_date is now
         """
-        question = create_question('Now', days=0, end_day=0)
+        question = create_question('Now', days=0)
+        self.assertIs(True, question.is_published())
+        self.assertIs(True, question.can_vote())
+
+    def test_end_date_is_now(self):
+        """Test for question that end_date is now.
+
+        :return: True when end_date is now
+        """
+        question = create_question("end_now", days=-1, end_day=0)
         self.assertIs(True, question.is_published())
         self.assertIs(True, question.can_vote())
 
