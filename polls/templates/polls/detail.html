@@ -2,20 +2,20 @@
 
 <link rel="stylesheet" href="{% static 'polls/style.css' %}">
 
-<div style="border: 2px solid #A27B5C; border-radius: 5px; background-color: #A27B5C; padding: 10px; width: 70%; margin-left: auto; margin-right: auto; text-align: center;">
-<form action="{% url 'polls:vote' question.id %}" method="post">
-    {% csrf_token %}
-    <div style="border: 5px solid #3F4E4F; border-radius: 5px; margin: 5px; background-color: #3F4E4F;">
-    <fieldset style="border: none; colour: #DCD7C9;">
-        <legend><h1>{{ question.question_text }}</h1></legend>
-    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-    {% for choice in question.choice_set.all %}
-        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
-    {% endfor %}
-    </fieldset>
-    </div>
-    <input type="submit" value="Vote" class="input_button">
-    <a href="{% url 'polls:index' %}"> <input type="button" value="Back to poll list" class="input_button"></a>
+<div class="div_outer_layer">
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+        {% csrf_token %}
+            <div class="div_inner_layer">
+                <fieldset style="border: none; colour: #DCD7C9;">
+                    <legend><h1>{{ question.question_text }}</h1></legend>
+                        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+                        {% for choice in question.choice_set.all %}
+                            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+                        {% endfor %}
+                </fieldset>
+            </div>
+        <input type="submit" value="Vote" class="input_button">
+        <a href="{% url 'polls:index' %}"> <input type="button" value="Back to poll list" class="input_button"></a>
 </form>
 </div>

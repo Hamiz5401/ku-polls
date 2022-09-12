@@ -3,11 +3,11 @@
 <link rel="stylesheet" href="{% static 'polls/style.css' %}">
 
 {% if latest_question_list %}
-<div style="border: 2px solid #A27B5C; border-radius: 5px; background-color: #A27B5C; padding: 10px; width: 70%; margin-left: auto; margin-right: auto;">
+<div class="div_outer_layer">
     <ul>
     {% for question in latest_question_list %}
-        <li style="border: 5px solid #3F4E4F; border-radius: 5px; margin: 5px; background-color: #3F4E4F;"><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a>
-            <a href="{% url 'polls:results' question.id %}"><input type="button" value="Result" style="background-color:#2C3639; border-radius:5px; color:#fff; font-weight:600; border:none; padding: 5px;"></a> </li>
+        <li class="div_inner_layer"><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a>
+            <a href="{% url 'polls:results' question.id %}"><input type="button" value="Result" class="input_button"></a> </li>
     {% endfor %}
     </ul>
 </div>

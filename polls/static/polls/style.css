@@ -40,3 +40,10 @@ input[type="radio"] {
     margin-left: auto;
     margin-right: auto;
 }
+
+.div_inner_layer {
+    border: 5px solid #3F4E4F;
+    border-radius: 5px;
+    margin: 5px;
+    background-color: #3F4E4F;
+}
