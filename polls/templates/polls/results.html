@@ -1,12 +1,19 @@
-<h1>{{ question.question_text }}</h1>
+{% load static %}
 
-<ul>
-    {% for choice in question.choice_set.all %}
-        <li>
-            {{ choice.choice_text }} -- {{ choice.votes }}
-            vote{{ choice.votes|pluralize }}
-        </li>
-    {% endfor %}
-</ul>
+<link rel="stylesheet" href="{% static 'polls/style.css' %}">
 
-<a href="{% url 'polls:detail' question.id %}"> Vote again? </a>
+<div style="border: 2px solid #A27B5C; border-radius: 5px; background-color: #A27B5C; padding: 10px; width: 70%; margin-left: auto; margin-right: auto; text-align: center;">
+    <h1>{{ question.question_text }}</h1>
+
+<table style="border: 2px solid #3F4E4F; border-radius: 5px; background-color: #3F4E4F; margin: 20px; width: 70%; margin-left: auto; margin-right: auto; color: #DCD7C9;">
+{% for choice in question.choice_set.all %}
+    <tr>
+        <th>{{ choice.choice_text }}</th>
+        <th>{{ choice.votes }}</th>
+    </tr>
+{% endfor %}
+</table>
+
+
+<a href="{% url 'polls:index' %}"> <input type="button" value="Back to poll list" style="background-color:#2C3639; border-radius:5px; color:#fff; font-weight:600; border:none; padding: 5px;"></a>
+</div>

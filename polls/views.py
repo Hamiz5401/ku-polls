@@ -1,8 +1,9 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from django.contrib import messages
 
 from .models import Question, Choice
 
@@ -35,6 +36,14 @@ class DetailView(generic.DetailView):
         Excludes any questions that aren't published yet.
         """
         return Question.objects.filter(pub_date__lte=timezone.now())
+
+    def dispatch(self, request, *args, **kwargs):
+        question = get_object_or_404(Question, pk=self.kwargs['pk'])
+        if not question.can_vote():
+            messages.error(request, "Voting is not allowed for this poll")
+            return redirect(reverse('polls:index'))
+        else:
+            return super().get(request, *args, **kwargs)
 
 
 class ResultsView(generic.DetailView):

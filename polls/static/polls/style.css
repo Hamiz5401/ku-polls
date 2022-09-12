@@ -1,7 +1,42 @@
 li a {
-    color: green;
+    color: #DCD7C9;
+}
+
+h1 {
+    color: #DCD7C9;
+}
+
+label {
+    color: #DCD7C9;
+}
+
+a {
+      text-decoration:none;
 }
 
 body {
-    background: white url("images/background.jpg") no-repeat;
+    background-color: #2C3639;
+}
+
+.input_button {
+    background-color:#2C3639;
+    border-radius:5px;
+    color:#fff;
+    font-weight:600;
+    border:none;
+    padding: 5px;
+}
+
+input[type="radio"] {
+    justify-content: center;
+}
+
+.div_outer_layer {
+    border: 2px solid #A27B5C;
+    border-radius: 5px;
+    background-color: #A27B5C;
+    padding: 10px;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
 }
