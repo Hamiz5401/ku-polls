@@ -7,13 +7,15 @@ from django.urls import reverse
 from .models import Question
 
 
-def create_question(question_text, days, end_day):
+def create_question(question_text, days, end_day=None):
     """
     Create a question with the given `question_text` and published the
     given number of `days` offset to now (negative for questions published
     in the past, positive for questions that have yet to be published).
     """
     time = timezone.now() + datetime.timedelta(days=days)
+    if end_day is None:
+        return Question.objects.create(question_text=question_text, pub_date=time)
     end_day = timezone.now() + datetime.timedelta(days=end_day)
     return Question.objects.create(question_text=question_text, pub_date=time, end_date=end_day)
 
@@ -111,12 +113,12 @@ class QuestionDetailViewTests(TestCase):
     def test_future_question(self):
         """
         The detail view of a question with a pub_date in the future
-        returns a 404 not found.
+        returns a 302 redirect.
         """
         future_question = create_question(question_text='Future question.', days=5, end_day=15)
         url = reverse('polls:detail', args=(future_question.id,))
         response = self.client.get(url)
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 302)
 
     def test_past_question(self):
         """
@@ -134,3 +136,24 @@ class Question_can_vote_and_is_published_test(TestCase):
     def test_pubdate_in_future(self):
         future_question = create_question('Future question', days=5, end_day=15)
         self.assertFalse(future_question.is_published())
+        self.assertFalse(future_question.can_vote())
+
+    def test_pub_date_and_end_date_is_now(self):
+        question = create_question('Now', days=0, end_day=0)
+        self.assertIs(True, question.is_published())
+        self.assertIs(True, question.can_vote())
+
+    def test_pass_end_date(self):
+        question = create_question("pass_end", days=-5, end_day=-1)
+        self.assertIs(True, question.is_published())
+        self.assertIs(False, question.can_vote())
+
+    def test_end_date_null(self):
+        question = create_question("end_date_is_null", days=0)
+        self.assertIs(True, question.is_published())
+        self.assertIs(True, question.can_vote())
+
+    def test_question_within_poll_period(self):
+        question = create_question("I can vote", days=-1, end_day=5)
+        self.assertIs(True, question.is_published())
+        self.assertIs(True, question.can_vote())
