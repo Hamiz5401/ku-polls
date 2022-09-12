@@ -9,7 +9,7 @@
     {% for choice in question.choice_set.all %}
         <tr>
             <th style="padding-bottom:20px;">{{ choice.choice_text }}</th>
-            <th>{{ choice.votes }}</th>
+            <th style="padding-bottom:20px;">{{ choice.votes }}</th>
         </tr>
     {% endfor %}
 </table>
