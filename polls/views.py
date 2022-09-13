@@ -1,8 +1,10 @@
+"""View for Polls app."""
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from django.contrib import messages
 
 from .models import Question, Choice
 
@@ -15,6 +17,8 @@ def showtime(request) -> HttpResponse:
 
 
 class IndexView(generic.ListView):
+    """Index page that display the latest 5 questions."""
+
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
 
@@ -27,22 +31,34 @@ class IndexView(generic.ListView):
 
 
 class DetailView(generic.DetailView):
+    """Detail page for each questions."""
+
     model = Question
     template_name = 'polls/detail.html'
 
     def get_queryset(self):
-        """
-        Excludes any questions that aren't published yet.
-        """
+        """Excludes any questions that aren't published yet."""
         return Question.objects.filter(pub_date__lte=timezone.now())
+
+    def dispatch(self, request, *args, **kwargs):
+        """Redirect user to index page when voting is not allow."""
+        question = get_object_or_404(Question, pk=self.kwargs['pk'])
+        if not question.can_vote():
+            messages.error(request, "Voting is not allowed for this poll")
+            return redirect(reverse('polls:index'))
+        else:
+            return super().get(request, *args, **kwargs)
 
 
 class ResultsView(generic.DetailView):
+    """Result page for each questions."""
+
     model = Question
     template_name = 'polls/results.html'
 
 
 def vote(request, question_id):
+    """Function that accept vote(s) from detail page."""
     question = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
