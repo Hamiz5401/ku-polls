@@ -150,7 +150,7 @@ class Question_can_vote_and_is_published_test(TestCase):
 
         :return: True when end_date is now
         """
-        question = create_question("end_now", days=-1, end_day=0)
+        question = create_question("end_now", days=-1, end_day=0.0000001)
         self.assertIs(True, question.is_published())
         self.assertIs(True, question.can_vote())
 
