@@ -5,8 +5,9 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
-from .models import Question, Choice
+from .models import Question, Choice, Vote
 
 
 def showtime(request) -> HttpResponse:
@@ -43,6 +44,7 @@ class DetailView(generic.DetailView):
     def dispatch(self, request, *args, **kwargs):
         """Redirect user to index page when voting is not allow."""
         question = get_object_or_404(Question, pk=self.kwargs['pk'])
+        # user_vote = Vote.objects.get(user=request.user, choice__question=question)
         if not question.can_vote():
             messages.error(request, "Voting is not allowed for this poll")
             return redirect(reverse('polls:index'))
@@ -57,6 +59,7 @@ class ResultsView(generic.DetailView):
     template_name = 'polls/results.html'
 
 
+@login_required
 def vote(request, question_id):
     """Function that accept vote(s) from detail page."""
     question = get_object_or_404(Question, pk=question_id)
@@ -68,6 +71,10 @@ def vote(request, question_id):
             'error_message': "You didn't select a choice.",
         })
     else:
-        selected_choice.votes += 1
-        selected_choice.save()
+        try:
+            user_vote = Vote.objects.get(user=request.user, choice__question=question)
+            user_vote.choice = selected_choice
+            user_vote.save()
+        except Vote.DoesNotExist:
+            Vote.objects.create(choice=selected_choice, user=request.user)
         return HttpResponseRedirect(reverse('polls:results', args=(question_id,)))
