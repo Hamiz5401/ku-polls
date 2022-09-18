@@ -44,12 +44,23 @@ class DetailView(generic.DetailView):
     def dispatch(self, request, *args, **kwargs):
         """Redirect user to index page when voting is not allow."""
         question = get_object_or_404(Question, pk=self.kwargs['pk'])
-        # user_vote = Vote.objects.get(user=request.user, choice__question=question)
         if not question.can_vote():
             messages.error(request, "Voting is not allowed for this poll")
             return redirect(reverse('polls:index'))
         else:
             return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        question = Question.objects.get(pk=self.kwargs['pk'])
+        user = self.request.user
+        if user.is_authenticated:
+            try:
+                existed_vote = Vote.objects.get(user=user, choice__in=question.choice_set.all()).choice.choice_text
+                context['existed_vote'] = existed_vote
+            except Vote.DoesNotExist:
+                pass
+        return context
 
 
 class ResultsView(generic.DetailView):
