@@ -51,6 +51,7 @@ class DetailView(generic.DetailView):
             return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
+        """Add more context to the template of this page."""
         context = super().get_context_data(**kwargs)
         question = Question.objects.get(pk=self.kwargs['pk'])
         user = self.request.user
