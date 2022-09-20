@@ -29,6 +29,13 @@ Now you can run the server by tying
 py manage.py runserver
 ```
 
+## Demo user
+
+| Username  | Password  |
+|-----------|-----------|
+|   test   | password |
+|   demo   | password |
+
 ## Project Documents
 
 All project documents are in the [Project Wiki](../../wiki/Home)
@@ -36,6 +43,7 @@ All project documents are in the [Project Wiki](../../wiki/Home)
 - [Vision Statement](../../wiki/Vision%20Statement)
 - [Requirements](../../wiki/Requirements)
 - [Project Plan](../../wiki/Development%20Plan)
-- [Iteration 1 Plan](../../wiki/Iteration%201%20Plan) and [Task Board](https://github.com/users/Hamiz5401/projects/4/views/1)
+- [Task Board](https://github.com/users/Hamiz5401/projects/4/views/1)
+- [Iteration 1 Plan](../../wiki/Iteration%201%20Plan)
 - [Iteration 2 Plan](../../wiki/Iteration%202%20%Plan)
-
+- [Iteration 3 Plan](../../wiki/Iteration%20320%Plan)

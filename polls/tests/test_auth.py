@@ -48,6 +48,7 @@ class AuthTest(TestCase):
         self.assertRedirects(response, reverse('polls:index'))  # should redirect to the index page
 
     def test_auth_user_vote(self):
+        """User that unauthenticated will be redirected to login page."""
         self.client.login(username=self.username, password=self.password)
         question = create_question("auth_check", days=-1)
         response = self.client.post(reverse('polls:vote', args=(question.id,)))
@@ -57,6 +58,7 @@ class AuthTest(TestCase):
         self.assertEqual(302, response.status_code)
 
     def test_one_user_vote(self):
+        """Each user should only have one vote."""
         self.client.login(username=self.username, password=self.password)
         question = create_question("auth_check", days=-1)
         choice1 = question.choice_set.create(choice_text='test1')
@@ -64,4 +66,3 @@ class AuthTest(TestCase):
         self.client.post(reverse('polls:vote', args=(question.id,)), {'choice': choice1.id})
         self.client.post(reverse('polls:vote', args=(question.id,)), {'choice': choice2.id})
         self.assertEqual(Vote.objects.count(), 1)
-
