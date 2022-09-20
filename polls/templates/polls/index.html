@@ -3,13 +3,18 @@
 <link rel="stylesheet" href="{% static 'polls/style.css' %}">
 
 {% if latest_question_list %}
-<div class="div_outer_layer">
+<div class="div_outer_layer" style="height: 170px;">
     <ul>
     {% for question in latest_question_list %}
         <li class="div_inner_layer"><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a>
             <a href="{% url 'polls:results' question.id %}"><input type="button" value="Result" class="input_button"></a> </li>
     {% endfor %}
     </ul>
+
+
+    <a href="{% url 'login' %}" style="background-color:#2C3639; text-align: center; border-radius:5px; color:#fff; font-weight:600; border:none; padding: 5px; float: left;">Login</a>
+    <a href="{% url 'logout' %}" style="background-color:#2C3639; text-align: center; border-radius:5px; color:#fff; font-weight:600; border:none; padding: 5px; float: right">Logout</a>
+
 </div>
 {% if messages %}
     <ul class="messages" style="border: 2px solid #A27B5C; border-radius: 5px; background-color: #A27B5C; padding: 10px; width: 70%; margin-left: auto; margin-right: auto; color: #DCD7C9;">
