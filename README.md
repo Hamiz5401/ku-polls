@@ -15,6 +15,18 @@ First you need to clone this repository
 https://github.com/Hamiz5401/ku-polls.git
 ```
 
+After that you create a virtual environment in the directory
+
+```
+python -m venv env
+```
+
+Activate the virtual environment
+
+```
+. env/Scripts/activate
+```
+
 Then you need to install the requirement by using
 
 ```
@@ -22,6 +34,18 @@ pip install -r requirements.txt
 ```
 
 After that you need to create ```.env``` file that have configuration according to ```sample.env```
+
+Create a database by 
+
+```
+python manage.py migrate
+```
+
+Load data
+
+```
+python manage.py loaddata data/polls.json data/users.json
+```
 
 Now you can run the server by tying
 
@@ -47,3 +71,4 @@ All project documents are in the [Project Wiki](../../wiki/Home)
 - [Iteration 1 Plan](../../wiki/Iteration%201%20Plan)
 - [Iteration 2 Plan](../../wiki/Iteration%202%20%Plan)
 - [Iteration 3 Plan](../../wiki/Iteration%20320%Plan)
+- [Iteration 4 Plan](../../wiki/Iteration%20420%Plan)
