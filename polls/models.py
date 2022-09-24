@@ -52,7 +52,7 @@ class Choice(models.Model):
 
     @property
     def votes(self):
-        """count the number of votes for this choice."""
+        """Count the number of votes for this choice."""
         count = Vote.objects.filter(choice=self).count()
         return count
 
@@ -63,6 +63,7 @@ class Choice(models.Model):
 
 class Vote(models.Model):
     """Vote model for polls app."""
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
 

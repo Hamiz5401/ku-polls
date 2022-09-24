@@ -28,7 +28,8 @@ class IndexView(generic.ListView):
 
         :return: last five published question
         """
-        return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
+        return Question.objects.filter(
+            pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
 
 
 class DetailView(generic.DetailView):
@@ -57,7 +58,10 @@ class DetailView(generic.DetailView):
         user = self.request.user
         if user.is_authenticated:
             try:
-                existed_vote = Vote.objects.get(user=user, choice__in=question.choice_set.all()).choice.choice_text
+                existed_vote = Vote.objects.get(
+                    user=user,
+                    choice__in=question.choice_set.all()
+                ).choice.choice_text
                 context['existed_vote'] = existed_vote
             except Vote.DoesNotExist:
                 pass
@@ -73,7 +77,7 @@ class ResultsView(generic.DetailView):
 
 @login_required
 def vote(request, question_id):
-    """Function that accept vote(s) from detail page."""
+    """Get the vote action from detail page and save it."""
     question = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
@@ -84,9 +88,12 @@ def vote(request, question_id):
         })
     else:
         try:
-            user_vote = Vote.objects.get(user=request.user, choice__question=question)
+            user_vote = Vote.objects.get(user=request.user,
+                                         choice__question=question)
             user_vote.choice = selected_choice
             user_vote.save()
         except Vote.DoesNotExist:
-            Vote.objects.create(choice=selected_choice, user=request.user)
-        return HttpResponseRedirect(reverse('polls:results', args=(question_id,)))
+            Vote.objects.create(choice=selected_choice,
+                                user=request.user)
+        return HttpResponseRedirect(reverse('polls:results',
+                                            args=(question_id,)))

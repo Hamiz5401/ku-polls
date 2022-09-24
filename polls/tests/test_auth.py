@@ -1,3 +1,4 @@
+"""Test for authentication."""
 import datetime
 
 from django.test import TestCase
@@ -25,8 +26,10 @@ def create_question(question_text, days, end_day=None):
 
 
 class AuthTest(TestCase):
+    """Test cases for authentication."""
 
     def setUp(self):
+        """Initialize the user data."""
         self.username = "tester"
         self.password = "123"
         self.user = User.objects.create_user(
@@ -37,7 +40,7 @@ class AuthTest(TestCase):
         self.user.save()
 
     def test_login_auth(self):
-        """check if the user can login properly"""
+        """Check if the user can login properly."""
         url = reverse('login')
         response = self.client.get(url)
         self.assertEqual(200, response.status_code)
@@ -45,7 +48,9 @@ class AuthTest(TestCase):
         # login with the data
         response = self.client.post(url, login_data)
         self.assertEqual(302, response.status_code)  # redirected
-        self.assertRedirects(response, reverse('polls:index'))  # should redirect to the index page
+        # should redirect to the index page
+        self.assertRedirects(response,
+                             reverse('polls:index'))
 
     def test_auth_user_vote(self):
         """User that unauthenticated will be redirected to login page."""
@@ -63,6 +68,10 @@ class AuthTest(TestCase):
         question = create_question("auth_check", days=-1)
         choice1 = question.choice_set.create(choice_text='test1')
         choice2 = question.choice_set.create(choice_text='test2')
-        self.client.post(reverse('polls:vote', args=(question.id,)), {'choice': choice1.id})
-        self.client.post(reverse('polls:vote', args=(question.id,)), {'choice': choice2.id})
+        self.client.post(reverse('polls:vote',
+                                 args=(question.id,)),
+                         {'choice': choice1.id})
+        self.client.post(reverse('polls:vote',
+                                 args=(question.id,)),
+                         {'choice': choice2.id})
         self.assertEqual(Vote.objects.count(), 1)

@@ -1,0 +1,56 @@
+[
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$Ew1nNHJl6hTCaFPN6eaQML$tHuyT2OblOTgLnDYmE+pJCwQ82ztPL69j6H/HpmPFME=",
+    "last_login": "2022-09-23T17:31:59.080Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "kittiporn.the@ku.th",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2022-09-01T13:39:59.950Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$Xc6T5ZR524H4JZMs6Mxuku$X7NOdPUCOTP4048ve6nRgSHqKqzoqOYbZtDh1uvlCzY=",
+    "last_login": "2022-09-18T13:47:48.917Z",
+    "is_superuser": false,
+    "username": "test",
+    "first_name": "Tester",
+    "last_name": "",
+    "email": "test@test.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-09-15T07:25:37.763Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$0O0YgObwC8gFWeLqg99Vqu$bcZvLkgviH9mW1sqVJo1t4zifX/MXk50/Aop/GTFgFE=",
+    "last_login": "2022-09-18T13:50:44.236Z",
+    "is_superuser": false,
+    "username": "demo",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-09-17T09:15:29.768Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]
