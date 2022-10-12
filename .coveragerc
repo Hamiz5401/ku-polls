@@ -1,0 +1,6 @@
+[run]
+# omit uninteresting files
+omit =
+    manage.py
+    mysite/
+    migrations/
