@@ -1,3 +1,6 @@
+[![codecov](https://codecov.io/gh/Hamiz5401/ku-polls/branch/main/graph/badge.svg?token=2RBC036LEJ)](https://codecov.io/gh/Hamiz5401/ku-polls)
+![build](https://github.com/Hamiz5401/ku-polls/actions/workflows/python-app.yml/badge.svg)
+
 ## Online Polls And Surveys
 
 Web application for creating online polls and surveys based
