@@ -10,13 +10,6 @@ from django.contrib.auth.decorators import login_required
 from .models import Question, Choice, Vote
 
 
-def showtime(request) -> HttpResponse:
-    """Return the local time and date."""
-    thaitime = timezone.localtime()
-    msg = f"<p>The time is {thaitime}.</p>"
-    return HttpResponse(msg)
-
-
 class IndexView(generic.ListView):
     """Index page that display the latest 5 questions."""
 
