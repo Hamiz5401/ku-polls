@@ -4,12 +4,9 @@ import datetime
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
-from django.conf import settings
 
 from django.contrib.auth.models import User
 from ..models import Question, Vote
-
-settings.configure()
 
 
 def create_question(question_text, days, end_day=None):
