@@ -2,5 +2,5 @@
 # omit uninteresting files
 omit =
     manage.py
-    mysite/
-    polls/migrations/
+    mysite/*
+    */migrations/*
